@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "fakexrandr-background"
+version = "1.0.0"
+description = "Background slideshow for fakexrandr"
+authors = ["Alwin Schuster"]
+homepage = "https://alwinschuster.at"
+repository = "https://github.com/Alwinator/fakexrandr-background"
+documentation = "https://github.com/Alwinator/fakexrandr-background"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-xlib = "^0.31"
+opencv-python = "^4.5.3.56"
+
+[tool.poetry.dev-dependencies]
