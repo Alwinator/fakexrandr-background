@@ -15,16 +15,20 @@ class Screen:
 class Display:
     def __init__(self, line: List[str]):
         self.name = line[0]
-        self.width = 0
-        self.height = 0
-        self.left = 0
-        self.top = 0
+
+        dim = line[2].split("+")
+        res = dim[0].split("x")
+
+        self.width = int(res[0])
+        self.height = int(res[1])
+        self.left = int(dim[1])
+        self.top = int(dim[2])
 
     def __repr__(self):
         return f"Display({self.name}, w={self.width}, h={self.height}, l={self.left}, t={self.top})"
 
 
-def parse_randr(lines: List[str]):
+def parse_randr(lines: List[str]) -> Screen:
     screen = None
 
     for line in lines:
@@ -39,11 +43,6 @@ def parse_randr(lines: List[str]):
     return screen
 
 
-def main():
+def get_screen() -> Screen:
     result = os.popen('xrandr')
-    screen = parse_randr(result.readlines())
-    print(screen)
-
-
-if __name__ == '__main__':
-    main()
+    return parse_randr(result.readlines())
