@@ -14,7 +14,11 @@ chmod +x fakexrandr_background
 ```
 /path/to/fakexrandr_background /path/to/pictures 1800
 ```
-5. Add the run command to autostart (You might also add & at the end to make it run in background)
+5. Add the run command to autostart:
+Add the following line to `/home/user/.profile`
+```
+/path/to/fakexrandr_background /path/to/pictures 1800 --delay 4 &
+```
 
 ### Pull Requests and Bug reports are welcome!
 #### DEV Setup

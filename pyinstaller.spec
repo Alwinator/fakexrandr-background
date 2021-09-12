@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['fakexrandr_background/main.py'],
-             pathex=['/home/alwin/PycharmProjects/fakexrandr-background'],
+             pathex=[],
              binaries=[],
              datas=[],
              hiddenimports=[],

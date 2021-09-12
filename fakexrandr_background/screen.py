@@ -16,7 +16,12 @@ class Display:
     def __init__(self, line: List[str]):
         self.name = line[0]
 
-        dim = line[2].split("+")
+        raw_dim = line[2]
+
+        if raw_dim == "primary":
+            raw_dim = line[3]
+
+        dim = raw_dim.split("+")
         res = dim[0].split("x")
 
         self.width = int(res[0])
