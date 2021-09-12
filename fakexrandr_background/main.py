@@ -1,6 +1,8 @@
 import os
 import random
+import subprocess
 import time
+import logging
 import argparse
 from pathlib import Path
 
@@ -16,6 +18,7 @@ parser.add_argument('change_duration', type=float, help='The duration to wait be
 parser.add_argument('--save_path', default='/tmp/background.jpg', help='A temporary path to save the background image.')
 
 args = parser.parse_args()
+logging.basicConfig(level=logging.INFO)
 
 
 # From https://stackoverflow.com/a/58034691/6760875
@@ -68,15 +71,23 @@ def get_paths(picture_path):
 
 
 def main():
+    logging.info("Starting...")
+    logging.info("Get xrandr displays")
     screen = get_screen()
+    logging.info("Get picture paths")
     picture_paths = get_paths(args.picture_folder)
 
-    os.system(f"gsettings set org.gnome.desktop.background picture-options 'spanned'")
+    logging.info("Set gsettings set org.gnome.desktop.background picture-options to spanned")
+    subprocess.call("gsettings set org.gnome.desktop.background picture-options 'spanned'", shell=True)
 
     while True:
+        logging.info("Generating picture...")
         background = create_picture(screen, picture_paths)
         cv2.imwrite(args.save_path, background)
-        os.system(f"gsettings set org.gnome.desktop.background picture-uri file:///{args.save_path}")
+        logging.info("Picture saved")
+        subprocess.call(f"gsettings set org.gnome.desktop.background picture-uri file:///{args.save_path}", shell=True)
+        logging.info("Background updated")
+        logging.info(f"Waiting for {args.change_duration} seconds")
         time.sleep(args.change_duration)
 
 
