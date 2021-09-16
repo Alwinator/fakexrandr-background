@@ -84,7 +84,7 @@ def main():
     picture_paths = get_paths(args.picture_folder)
 
     logging.info("Set gsettings set org.gnome.desktop.background picture-options to spanned")
-    os.system("gsettings set org.gnome.desktop.background picture-options 'spanned'")
+    os.system("/usr/bin/gsettings set org.gnome.desktop.background picture-options 'spanned'")
 
     while True:
         logging.info("Generating picture...")
@@ -94,7 +94,7 @@ def main():
             cv2.imwrite(tmp.name + ".jpg", background)
             logging.info("Picture saved")
 
-            os.system(f"gsettings set org.gnome.desktop.background picture-uri file:///{tmp.name}.jpg")
+            os.system(f"/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///{tmp.name}.jpg")
             logging.info("Background updated")
 
         logging.info(f"Waiting for {args.change_duration} seconds")
