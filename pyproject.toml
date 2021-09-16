@@ -9,7 +9,8 @@ documentation = "https://github.com/Alwinator/fakexrandr-background"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-opencv-python = "^4.5.3.56"
+opencv-python-headless = "^4.5.3.56"
+PyQt5 = "^5.15.4"
 
 [tool.poetry.dev-dependencies]
 pyinstaller = "^4.5.1"

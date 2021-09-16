@@ -1,6 +1,7 @@
 import os
 import random
 import tempfile
+import threading
 import time
 import logging
 import argparse
@@ -9,6 +10,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+from fakexrandr_background.icon import show_icon
 from screen import get_screen
 
 parser = argparse.ArgumentParser(description='fakexrandr-background')
@@ -71,6 +73,31 @@ def get_paths(picture_path):
     return list(pictures)
 
 
+def set_spanned():
+    logging.info("Set gsettings set org.gnome.desktop.background picture-options to spanned")
+    os.system("/usr/bin/gsettings set org.gnome.desktop.background picture-options 'spanned'")
+
+
+def update_picture(screen, picture_paths):
+    logging.info("Generating picture...")
+    background = create_picture(screen, picture_paths)
+
+    with tempfile.NamedTemporaryFile() as tmp:
+        cv2.imwrite(tmp.name + ".jpg", background)
+        logging.info("Picture saved")
+
+        os.system(f"/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///{tmp.name}.jpg")
+        logging.info("Background updated")
+
+
+def loop(screen, picture_paths):
+    while True:
+        update_picture(screen, picture_paths)
+
+        logging.info(f"Waiting for {args.change_duration} seconds")
+        time.sleep(args.change_duration)
+
+
 def main():
     logging.info("Starting...")
 
@@ -83,22 +110,10 @@ def main():
     logging.info("Get picture paths")
     picture_paths = get_paths(args.picture_folder)
 
-    logging.info("Set gsettings set org.gnome.desktop.background picture-options to spanned")
-    os.system("/usr/bin/gsettings set org.gnome.desktop.background picture-options 'spanned'")
+    thread = threading.Thread(target=loop, daemon=True, args=(screen, picture_paths))
+    thread.start()
 
-    while True:
-        logging.info("Generating picture...")
-        background = create_picture(screen, picture_paths)
-
-        with tempfile.NamedTemporaryFile() as tmp:
-            cv2.imwrite(tmp.name + ".jpg", background)
-            logging.info("Picture saved")
-
-            os.system(f"/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///{tmp.name}.jpg")
-            logging.info("Background updated")
-
-        logging.info(f"Waiting for {args.change_duration} seconds")
-        time.sleep(args.change_duration)
+    show_icon(args, lambda: update_picture(screen, picture_paths))
 
 
 if __name__ == '__main__':
