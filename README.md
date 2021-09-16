@@ -10,7 +10,7 @@ Uses cv2 to generate the pictures and gsettings to set the background. Tested on
 ```
 chmod +x fakexrandr_background
 ```
-4. Run
+4. Run (1800 for a image change every 30 minutes [60 * 30])
 ```
 /path/to/fakexrandr_background /path/to/pictures 1800
 ```
