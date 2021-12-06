@@ -2,7 +2,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QAction
 
 
-def show_icon(args, update_picture):
+def show_icon(args, update_picture, set_spanned):
     app = QApplication([])
     app.setQuitOnLastWindowClosed(False)
     # Adding an icon
@@ -34,6 +34,10 @@ def show_icon(args, update_picture):
     m2 = QAction("Update picture")
     m2.triggered.connect(update_picture)
     menu.addAction(m2)
+
+    m3 = QAction("Set spanned")
+    m3.triggered.connect(set_spanned)
+    menu.addAction(m3)
 
     # To quit the app
     quit = QAction("Quit")

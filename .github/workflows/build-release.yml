@@ -33,7 +33,7 @@ jobs:
         run: poetry install
 
       - name: Build executable
-        run: pyinstaller --clean pyinstaller.spec
+        run: pyinstaller --clean fakexrandr_background.spec
 
       - name: Make executable
         run: chmod +x dist/fakexrandr_background/fakexrandr_background

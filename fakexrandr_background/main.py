@@ -4,9 +4,9 @@ import logging
 import argparse
 from pathlib import Path
 
-from fakexrandr_background.gsetting_actions import update_picture
+from fakexrandr_background.gsetting_actions import update_picture, set_spanned
 from fakexrandr_background.icon import show_icon
-from fakexrandr_background.picture_utils import create_picture, get_paths
+from fakexrandr_background.picture_utils import get_paths
 from screen import get_screen
 
 parser = argparse.ArgumentParser(description='fakexrandr-background')
@@ -21,6 +21,8 @@ logging.basicConfig(level=logging.INFO)
 
 
 def loop(screen, picture_paths):
+    set_spanned()
+
     while True:
         update_picture(screen, picture_paths)
 
@@ -43,7 +45,7 @@ def main():
     thread = threading.Thread(target=loop, daemon=True, args=(screen, picture_paths))
     thread.start()
 
-    show_icon(args, lambda: update_picture(screen, picture_paths))
+    show_icon(args, lambda: update_picture(screen, picture_paths), set_spanned)
 
 
 if __name__ == '__main__':

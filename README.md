@@ -25,3 +25,4 @@ Add the following line to `/home/user/.profile`
 1. Setup virtualenv with Python 3.9
 2. `poetry install`
 3. `python fakexrandr_background/main.py`
+4. Build: `pyinstaller fakexrandr_background.spec && chmod +x dist/fakexrandr_background/fakexrandr_background`
