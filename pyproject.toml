@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fakexrandr-background"
-version = "1.0.0"
+version = "1.0.1"
 description = "Background slideshow for fakexrandr"
 authors = ["Alwin Schuster"]
 homepage = "https://alwinschuster.at"
