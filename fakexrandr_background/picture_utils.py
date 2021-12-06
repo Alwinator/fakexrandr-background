@@ -32,13 +32,14 @@ def crop_and_resize(img, w, h):
     return img
 
 
-def create_picture(screen, picture_paths):
+def create_picture(screen, picture_paths, brightness):
     background = np.zeros((screen.height, screen.width, 3), np.uint8)
     chosen_paths = random.sample(picture_paths, len(screen.displays))
 
     for i, display in enumerate(screen.displays):
         img = cv2.imread(str(chosen_paths[i]))
         img = crop_and_resize(img, display.width, display.height)
+        img = img * brightness
         background[display.top:display.top + display.height, display.left:display.left + display.width] = img
 
     return background

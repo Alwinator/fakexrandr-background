@@ -15,6 +15,7 @@ parser.add_argument('change_duration', type=float, help='The duration to wait be
                                                         '(In seconds)')
 parser.add_argument('--delay', type=float, default=0, help='A delay at the beginning. Linux often needs some time to '
                                                            'setup the displays after startup. (In seconds)')
+parser.add_argument('--brightness', type=float, default=1, help='A value between 0 and 1 to set dim the background')
 
 args = parser.parse_args()
 logging.basicConfig(level=logging.INFO)
@@ -24,7 +25,7 @@ def loop(screen, picture_paths):
     set_spanned()
 
     while True:
-        update_picture(screen, picture_paths)
+        update_picture(screen, picture_paths, args.brightness)
 
         logging.info(f"Waiting for {args.change_duration} seconds")
         time.sleep(args.change_duration)
@@ -45,7 +46,7 @@ def main():
     thread = threading.Thread(target=loop, daemon=True, args=(screen, picture_paths))
     thread.start()
 
-    show_icon(args, lambda: update_picture(screen, picture_paths), set_spanned)
+    show_icon(args, lambda: update_picture(screen, picture_paths, args.brightness), set_spanned)
 
 
 if __name__ == '__main__':

@@ -12,9 +12,9 @@ def set_spanned():
     os.system("/usr/bin/gsettings set org.gnome.desktop.background picture-options 'spanned'")
 
 
-def update_picture(screen, picture_paths):
+def update_picture(screen, picture_paths, brightness):
     logging.info("Generating picture...")
-    background = create_picture(screen, picture_paths)
+    background = create_picture(screen, picture_paths, brightness)
 
     with tempfile.NamedTemporaryFile() as tmp:
         cv2.imwrite(tmp.name + ".jpg", background)
