@@ -25,11 +25,14 @@ def show_icon(args, update_picture, set_spanned):
     i1 = QAction(f"Picture Folder: {args.picture_folder}")
     info_menu.addAction(i1)
 
-    i2 = QAction(f"Change Duration: {args.change_duration}")
+    i2 = QAction(f"Change Duration: {args.change_duration} second(s)")
     info_menu.addAction(i2)
 
-    i3 = QAction(f"Startup Delay: {args.delay}")
+    i3 = QAction(f"Startup Delay: {args.delay} second(s)")
     info_menu.addAction(i3)
+
+    i4 = QAction(f"Brightness: {args.brightness*100}%")
+    info_menu.addAction(i4)
 
     m2 = QAction("Update picture")
     m2.triggered.connect(update_picture)
