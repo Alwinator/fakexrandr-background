@@ -17,7 +17,7 @@ chmod +x fakexrandr_background
 5. Add the run command to autostart:
 Add the following line to `/home/user/.profile`
 ```
-/path/to/fakexrandr_background /path/to/pictures 1800 --delay 4 &
+/path/to/fakexrandr_background /path/to/pictures 1800 --delay 6 --brightness 0.5 &
 ```
 
 ### Pull Requests and Bug reports are welcome!
