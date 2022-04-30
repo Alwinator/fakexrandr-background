@@ -6,7 +6,7 @@ def show_icon(args, update_picture, set_spanned):
     app = QApplication([])
     app.setQuitOnLastWindowClosed(False)
     # Adding an icon
-    icon = QIcon(":icon/fakexrandr_background_64.png")
+    icon = QIcon("icon/fakexrandr_background_64.png")
 
     # Adding item on the menu bar
     tray = QSystemTrayIcon()

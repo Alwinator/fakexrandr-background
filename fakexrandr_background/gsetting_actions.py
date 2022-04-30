@@ -21,4 +21,5 @@ def update_picture(screen, picture_paths, brightness):
         logging.info("Picture saved")
 
         os.system(f"/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///{tmp.name}.jpg")
+        os.system(f"/usr/bin/gsettings set org.gnome.desktop.background picture-uri-dark file:///{tmp.name}.jpg")
         logging.info("Background updated")
